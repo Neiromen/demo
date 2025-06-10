@@ -15,5 +15,6 @@ public class Test1 {
 //        SchoolLibrary schoolLibrary = context.getBean("schoolLibrary",SchoolLibrary.class);
 //        schoolLibrary.getBook();
 //        context.close();
+
     }
 }
