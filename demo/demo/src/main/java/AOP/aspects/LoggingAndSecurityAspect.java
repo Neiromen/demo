@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class LoggingAndSecurityAspect {
-    @Pointcut("execution(* UniLibrary.get*()")
+    @Pointcut("execution(* AOP.UniLibrary.get*())")
     private void allGetMethodsFromUniLibrary(){}
 
-    @Pointcut("execution(* UniLibrary.return*()")
+    @Pointcut("execution(* AOP.UniLibrary.return*())")
     private void allReturnMethodsFromUniLibrary(){}
 
     @Pointcut("allGetMethodsFromUniLibrary() || allReturnMethodsFromUniLibrary()")
