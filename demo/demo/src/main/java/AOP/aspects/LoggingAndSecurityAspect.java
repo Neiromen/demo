@@ -22,7 +22,7 @@ public class LoggingAndSecurityAspect {
         System.out.println("beforeGetLoggingAdvice: writing Log #1");
     }
 
-    @Before("allReturnMethodsFromUniLibrary")
+    @Before("allReturnMethodsFromUniLibrary()")
     public void beforeReturnLoggingAdvice() {
         System.out.println("allReturnMethodsFromUniLibrary: writing Log #2");
     }
