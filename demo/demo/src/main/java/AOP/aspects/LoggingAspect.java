@@ -1,7 +1,10 @@
 package AOP.aspects;
 
+import AOP.Book;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -46,9 +49,29 @@ public class LoggingAspect {
 //        System.out.println("beforeGetLoggingAdvice: writing Log #3");
 //    }
 
-    @Before("AOP.aspects.MyPointcuts.allGetMethods()")
-    public void beforeGetLoggingAdvice() {
-        System.out.println("beforeGetBookAdvice: логирование попытки получить книгу/журнал");
+    @Before("AOP.aspects.MyPointcuts.allAddMethods()")
+    public void beforeAddLoggingAdvice(JoinPoint joinPoint) {
+        MethodSignature methodSignature =(MethodSignature) joinPoint.getSignature();
+        System.out.println("MethodSignature = " + methodSignature);
+        System.out.println("methodSignature.getMethod() = "+methodSignature.getMethod());
+        System.out.println("methodSignature.getReturnType() = "+methodSignature.getReturnType());
+        System.out.println("methodSignature.getName() = "+methodSignature.getName());
+        System.out.println("beforeAddBookAdvice: логирование попытки получить книгу/журнал");
+        System.out.println("------------------------------------");
+        if (methodSignature.getName().equals("addBook")) {
+            Object[] arguments = joinPoint.getArgs();
+            for (Object obj: arguments) {
+                if(obj instanceof Book) {
+                    Book book = (Book) obj;
+                    System.out.println("Информация о книге");
+                    System.out.println(book.getAuthor());
+                    System.out.println(book.getYearOfPublication());
+                    System.out.println(book.getName());
+                } else if (obj instanceof String) {
+                    System.out.println("информацию в книгу добавляет:" + obj);
+                }
+            }
+        }
     }
 
 
