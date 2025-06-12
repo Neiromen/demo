@@ -2,14 +2,14 @@ package hibernate_test;
 
 import hibernate_test.entity.Employee;
 import org.hibernate.SessionFactory;
-
-import javax.security.auth.login.Configuration;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Test1 {
     public static void main(String[] args) {
-        SessionFactory factory = new Configuration()
+        SessionFactory configuration = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Employee.class)
-                .buildSessionFactory();
+                .addAnnotatedClass(Employee.class).buildSessionFactory();
     }
 }
