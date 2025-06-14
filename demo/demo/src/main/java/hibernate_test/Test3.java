@@ -4,10 +4,10 @@ import hibernate_test.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class Test1 {
+import java.util.List;
+
+public class Test3 {
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -15,12 +15,17 @@ public class Test1 {
                 .buildSessionFactory();
         try {
             Session session = factory.getCurrentSession();
-            Employee employee = new Employee("Alexandr","Ivanov","IT",600);
             session.beginTransaction();
-            session.save(employee);
+//            List<Employee> employees = session.createQuery("from Employee").getResultList();
+//            List<Employee> employees = session.createQuery("from Employee " +
+//                    "where name = 'Alexandr'").getResultList();
+            List<Employee> employees = session.createQuery("from Employee " +
+                   "where ((name = 'Alexandr') AND (salary > 650))").getResultList();
+            for (Employee e : employees) {
+                System.out.println(e);
+            }
             session.getTransaction().commit();
-            System.out.println("done");
-            System.out.println(employee);
+            System.out.println("Done!");
         }
         finally {
             factory.close();

@@ -4,10 +4,9 @@ import hibernate_test.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class Test1 {
+
+public class Test2 {
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -15,12 +14,18 @@ public class Test1 {
                 .buildSessionFactory();
         try {
             Session session = factory.getCurrentSession();
-            Employee employee = new Employee("Alexandr","Ivanov","IT",600);
+            Employee emp = new Employee("Abubachir","Lexov","Pitux",200);
             session.beginTransaction();
-            session.save(employee);
+            session.save(emp);
             session.getTransaction().commit();
-            System.out.println("done");
+
+            int myId = emp.getId();
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+            Employee employee =session.get(Employee.class, myId);
+            session.getTransaction().commit();
             System.out.println(employee);
+            System.out.println("done");
         }
         finally {
             factory.close();
